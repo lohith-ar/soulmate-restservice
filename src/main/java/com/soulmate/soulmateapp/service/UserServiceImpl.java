@@ -52,5 +52,10 @@ public class UserServiceImpl implements UserService{
         return userrepo.getUsersByAge(age);
     }
 
+    @Override
+    public List<SoulmateUser> getAllUsersbyName(String name) {
+        return userrepo.getUsersByName(name);
+    }
+
 
 }

@@ -17,4 +17,7 @@ public interface UserRepository extends CrudRepository<SoulmateUser,Integer> {
     @Query("FROM SoulmateUser WHERE age=:age1")
     List<SoulmateUser> getUsersByAge(@Param("age1") int age);
 
+    @Query("FROM SoulmateUser WHERE name=:name1")
+    List<SoulmateUser> getUsersByName(@Param("name1") String name);
+
 }
