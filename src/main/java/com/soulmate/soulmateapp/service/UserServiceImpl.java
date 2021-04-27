@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService{
@@ -28,27 +29,22 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public SoulmateUser updateUser(int id) {
-        for (SoulmateUser suser: getAllUsers()) {
-            if(suser.getId()== id){
-
-                return suser;
-            }
-        }
-
-        return null;
+    public SoulmateUser updateUser(Integer id, SoulmateUser user) {
+        Optional<SoulmateUser> user1= userrepo.findById(id);
+        user.setId(id);
+        return userrepo.save(user);
     }
 
     @Override
-    public List<SoulmateUser> deleteUser(int id) {
-        List<SoulmateUser> tempuser = getAllUsers();
-        for (SoulmateUser suser: tempuser) {
-            if(suser.getId()== id){
-                tempuser.remove(suser);
-                return tempuser;
-            }
-        }
-        return null;
+    public void deleteUser(int id) {
+        Optional<SoulmateUser> user1= userrepo.findById(id);
+        userrepo.deleteById(id);
+    }
+
+    @Override
+    public List<SoulmateUser> getAllUsersbyGender(String gender) {
+
+        return userrepo.getUsersByGender(gender);
     }
 
 

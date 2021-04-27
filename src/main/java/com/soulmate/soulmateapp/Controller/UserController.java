@@ -2,6 +2,7 @@ package com.soulmate.soulmateapp.Controller;
 
 import com.soulmate.soulmateapp.domain.SoulmateUser;
 import com.soulmate.soulmateapp.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +15,7 @@ public class UserController {
 
     private UserService userService;
 
+    @Autowired
     public UserController(UserService userService) {
         this.userService = userService;
     }
@@ -24,25 +26,27 @@ public class UserController {
         return new ResponseEntity<SoulmateUser>(user, HttpStatus.CREATED);
     }
 
-    @GetMapping("/allusers/{age}")
-    public ResponseEntity<List<SoulmateUser>> getUsers(@PathVariable(value="age") Integer age1){
-        List<SoulmateUser> userAge = (List<SoulmateUser>) userService.getAllUsers().stream().filter( (user1) -> user1.getAge()==age1 );
+    @GetMapping("/allusers/{gender}")
+    public ResponseEntity<List<SoulmateUser>> getUsersonGender(@PathVariable(value="gender") String gender13){
 
-        return new ResponseEntity<List<SoulmateUser>>(userAge ,HttpStatus.OK);
+        return new ResponseEntity<List<SoulmateUser>>(userService.getAllUsersbyGender(gender13) ,HttpStatus.OK);
+    }
+
+    @GetMapping("/allusers")
+    public ResponseEntity<List<SoulmateUser>> getAllUsers(){
+        return new ResponseEntity<List<SoulmateUser>>(userService.getAllUsers(), HttpStatus.OK);
     }
 
     @PutMapping("/updateuser/{id}")
     public ResponseEntity<List<SoulmateUser>> updateUser(@PathVariable(value="id") Integer id1,
                                                          @RequestBody SoulmateUser user){
-        SoulmateUser suser = userService.updateUser(id1);
-        suser.setAge(user.getAge());
-        suser.setGender(user.getGender());
-        suser.setName(user.getName());
-        return new ResponseEntity<List<SoulmateUser>>((List<SoulmateUser>) suser, HttpStatus.OK);
+        userService.updateUser(id1, user);
+        return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/deleteuser/{id}")
-    public ResponseEntity<List<SoulmateUser>> deleteUser(@PathVariable(value="id") Integer id1){
-       return new ResponseEntity<List<SoulmateUser>>( userService.deleteUser(id1), HttpStatus.OK);
+    public String deleteUser(@PathVariable(value="id") Integer id1){
+       userService.deleteUser(id1);
+       return "Deleted";
     }
 }

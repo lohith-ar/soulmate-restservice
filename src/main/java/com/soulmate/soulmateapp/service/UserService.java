@@ -8,8 +8,9 @@ public interface UserService {
 
     SoulmateUser saveUser(SoulmateUser user);
     List<SoulmateUser> getAllUsers();
-    SoulmateUser updateUser(int id);
-    List<SoulmateUser> deleteUser(int id);
+    SoulmateUser updateUser(Integer id, SoulmateUser user);
+    void deleteUser(int id);
+    List<SoulmateUser> getAllUsersbyGender(String gender);
 
 
 }
