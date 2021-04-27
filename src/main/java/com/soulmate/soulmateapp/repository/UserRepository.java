@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface UserRepository extends CrudRepository<SoulmateUser,Integer> {
 
-    @Query("FROM SoulmateUser WHERE gender:gender1")
+    @Query("FROM SoulmateUser WHERE gender=:gender1")
     List<SoulmateUser> getUsersByGender(@Param("gender1") String gender);
 
 }
