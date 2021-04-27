@@ -11,6 +11,9 @@ public interface UserService {
     SoulmateUser updateUser(Integer id, SoulmateUser user);
     void deleteUser(int id);
     List<SoulmateUser> getAllUsersbyGender(String gender);
+    List<SoulmateUser> getAllUsersbyAge(int age);
+
+
 
 
 }

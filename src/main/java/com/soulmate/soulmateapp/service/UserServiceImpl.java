@@ -47,5 +47,10 @@ public class UserServiceImpl implements UserService{
         return userrepo.getUsersByGender(gender);
     }
 
+    @Override
+    public List<SoulmateUser> getAllUsersbyAge(int age) {
+        return userrepo.getUsersByAge(age);
+    }
+
 
 }

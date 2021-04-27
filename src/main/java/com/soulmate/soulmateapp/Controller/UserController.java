@@ -32,6 +32,12 @@ public class UserController {
         return new ResponseEntity<List<SoulmateUser>>(userService.getAllUsersbyGender(gender13) ,HttpStatus.OK);
     }
 
+    @GetMapping("/allusers/{age}")
+    public ResponseEntity<List<SoulmateUser>> getUsersonGender(@PathVariable(value="age") int age1){
+
+        return new ResponseEntity<List<SoulmateUser>>(userService.getAllUsersbyAge(age1) ,HttpStatus.OK);
+    }
+
     @GetMapping("/allusers")
     public ResponseEntity<List<SoulmateUser>> getAllUsers(){
         return new ResponseEntity<List<SoulmateUser>>(userService.getAllUsers(), HttpStatus.OK);
